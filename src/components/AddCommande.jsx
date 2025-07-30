@@ -8,12 +8,19 @@ import {
   TextField,
   Typography,
   Grid,
-  Paper
+  Paper,
+  Snackbar,
+  Alert
 } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const steps = ["Informations générales", "Dates et livraison", "Contact et service"];
 
 function AddCommande({ onAdd }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const showForm = location.pathname === "/add";
+
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
     partNumber: "",
@@ -33,6 +40,8 @@ function AddCommande({ onAdd }) {
     inf: "",
   });
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -40,6 +49,8 @@ function AddCommande({ onAdd }) {
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
       if (onAdd) onAdd(formData);
+      setOpenSnackbar(true);
+      navigate("/");
       setFormData({
         partNumber: "",
         description: "",
@@ -104,6 +115,8 @@ function AddCommande({ onAdd }) {
     }
   };
 
+  if (!showForm) return null;
+
   return (
     <Box mt={6}>
       <Paper sx={{ p: 6, maxWidth: 1300, margin: "auto" }}>
@@ -148,6 +161,17 @@ function AddCommande({ onAdd }) {
           </Button>
         </Box>
       </Paper>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity="success" onClose={() => setOpenSnackbar(false)}>
+          Commande ajoutée avec succès !
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
