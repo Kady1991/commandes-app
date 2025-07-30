@@ -68,12 +68,11 @@ export default function DashboardLayout() {
   </ListItemButton>
 
   {/* 2. Ajouter une commande */}
-  <ListItemButton onClick={() => navigate("/")}>
-    <ListItemIcon>
-      <AddCircleOutlineIcon />
-    </ListItemIcon>
-    <ListItemText primary="Ajouter une commande" />
-  </ListItemButton>
+ <ListItemButton onClick={() => navigate("/add")}>
+  <ListItemIcon><AddCircleOutlineIcon /></ListItemIcon>
+  <ListItemText primary="Ajouter une commande" />
+</ListItemButton>
+
 
   {/* 3. Supprimer la commande */}
   <ListItemButton onClick={() => console.log("Supprimer une commande")}>

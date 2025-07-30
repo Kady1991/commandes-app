@@ -39,7 +39,7 @@ function AddCommande({ onAdd }) {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      onAdd(formData);
+      if (onAdd) onAdd(formData);
       setFormData({
         partNumber: "",
         description: "",
@@ -107,50 +107,41 @@ function AddCommande({ onAdd }) {
   return (
     <Box mt={6}>
       <Paper sx={{ p: 6, maxWidth: 1300, margin: "auto" }}>
-    <Typography variant="h6" gutterBottom>Nouvelle commande</Typography>
+        <Typography variant="h6" gutterBottom>Nouvelle commande</Typography>
 
-       <Stepper
-  activeStep={activeStep}
-  alternativeLabel
-  sx={{
-    '& .MuiStepIcon-root': {
-      color: '#ccc', // couleur par défaut
-      '&.Mui-active': {
-        color: '#48873a',
-      },
-      '&.Mui-completed': {
-        color: '#48873a',
-      },
-    },
-    '& .MuiStepLabel-label.Mui-active': {
-      color: '#48873a',
-    },
-    '& .MuiStepLabel-label.Mui-completed': {
-      color: '#48873a',
-    }
-  }}
->
-  {steps.map((label) => (
-    <Step key={label}>
-      <StepLabel>{label}</StepLabel>
-    </Step>
-  ))}
-</Stepper>
-
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          sx={{
+            '& .MuiStepIcon-root': {
+              color: '#ccc',
+              '&.Mui-active': { color: '#48873a' },
+              '&.Mui-completed': { color: '#48873a' },
+            },
+            '& .MuiStepLabel-label.Mui-active': { color: '#48873a' },
+            '& .MuiStepLabel-label.Mui-completed': { color: '#48873a' },
+          }}
+        >
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
 
         <Box mt={4}>{renderStepContent(activeStep)}</Box>
 
         <Box mt={4} display="flex" justifyContent="space-between">
-          <Button 
-            disabled={activeStep === 0} 
-            onClick={handleBack} 
+          <Button
+            disabled={activeStep === 0}
+            onClick={handleBack}
             sx={{ backgroundColor: "#b1dca8", color: "black", '&:hover': { backgroundColor: "#9bcd8d" } }}
           >
             Retour
           </Button>
-          <Button 
-            variant="contained" 
-            onClick={handleNext} 
+          <Button
+            variant="contained"
+            onClick={handleNext}
             sx={{ backgroundColor: "#b1dca8", color: "black", '&:hover': { backgroundColor: "#9bcd8d" } }}
           >
             {activeStep === steps.length - 1 ? "Valider" : "Suivant"}

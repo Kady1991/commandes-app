@@ -17,7 +17,7 @@ function CommandePage() {
       </Typography>
 
       {/* Formulaire d'ajout */}
-      <AddCommande onAdd={handleAddCommande} />
+      {/* <AddCommande onAdd={handleAddCommande} /> */}
 
       <Box mt={6}>
         <Typography variant="h6" gutterBottom>
